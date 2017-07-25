@@ -1,12 +1,12 @@
 var cell = require('./cell').cell;
 
-function universe(rows, cols, cells){
+function Universe(rows, cols, cells){
   this.rows = rows;
   this.cols = cols;
   this.cells = cells;
 }
 
-universe.prototype.regenerate = function(){
+Universe.prototype.regenerate = function(){
   var newCells = new Array();
   setNeighbours(this.cells);
 
@@ -84,4 +84,4 @@ function getCellState(row, col, cells){
   }).state;
 }
 
-module.exports = universe;
+module.exports = Universe;
