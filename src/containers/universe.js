@@ -8,6 +8,7 @@ class Universe extends Component {
   constructor(props){
     super(props);
 
+    /*
     const cells = props.population.cells;
     const rows = props.population.rows;
     const cols = props.population.cols;
@@ -20,18 +21,19 @@ class Universe extends Component {
         cells : cells
       }
     };
+    */
+    this.state = {generation : 0};
     this.onClick = this.onClick.bind(this);
   }
 
   onClick(event){
 
-    const clonedCells = this.state.population.cells.map(a => Object.assign({}, a));
-    const rows = this.state.population.rows;
-    const cols = this.state.population.cols;
+    //const clonedCells = this.state.population.cells.map(a => Object.assign({}, a));
+    ////const rows = this.state.population.rows;
+    //const cols = this.state.population.cols;
 
-    //console.log(this.props.population.cells);
-    const regeneratedCells = this.regenerate(rows, cols, clonedCells);
-  //  console.log(regeneratedCells);
+    //const regeneratedCells = regenerate(rows, cols, clonedCells);
+    /*
     this.setState({
       generation : this.state.generation + 1,
       population : {
@@ -40,13 +42,15 @@ class Universe extends Component {
         cells : regeneratedCells
       }
     });
-    console.log(this.state);
-    //this.props.fetchState(this.props.universe);
+    */
+
+    this.setState({generation : this.state.generation + 1});
+    this.props.fetchState(this.props.population);
   }
 
   renderUniverse(){
-    const numOfRows = this.state.population.rows;
-    const cells = this.state.population.cells;
+    const numOfRows = this.props.population.rows;
+    const cells = this.props.population.cells;
     var orderByRows = new Array();
 
     for (var i = 0; i < numOfRows; i++) {
@@ -86,164 +90,6 @@ class Universe extends Component {
         </table>
       </form>
     );
-  }
-
-  regenerate(rows, cols, cells){
-
-    var newCells = new Array();
-    this.setNeighbours(rows, cols, cells);
-
-    cells.map(function(cell, index){
-      var livingNeighbours = 0;
-      cell.neighbours.map(function(neighbour){
-        if (neighbour.state == 1) {
-          livingNeighbours++;
-        }
-      });
-
-      if (cell.state == 'ALIVE') {
-        if (livingNeighbours < 2 || livingNeighbours > 3) {
-          const newCell = new Cell(cell.position.row, cell.position.col, 0);
-          newCells.push(newCell);
-        }else{
-          const newCell = new Cell(cell.position.row, cell.position.col, 1);
-          newCells.push(newCell);
-        }
-      }else{
-        if (livingNeighbours == 3) {
-          const newCell = new Cell(cell.position.row, cell.position.col, 1);
-          newCells.push(newCell);
-        }else{
-          const newCell = new Cell(cell.position.row, cell.position.col, 0);
-          newCells.push(newCell);
-        }
-      }
-
-    });
-    return newCells;
-  }
-
-  setNeighbours(rows, cols, cells){
-    cells.map(function(cell){
-      cell.neighbours = new Array();
-      // neighbor in same row - Left
-      if (cell.position.col > 0) {
-        const neighbourRow = cell.position.row;
-        const neighbourCol = cell.position.col - 1;
-
-        const neighbour = cells.find(function(cell){
-          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
-        });
-
-        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
-        cell.neighbours.push(newNeighbour);
-      }
-
-      // neighbour in same row - right
-      if (cell.position.col < cols - 1) {
-        const neighbourRow = cell.position.row;
-        const neighbourCol = cell.position.col + 1;
-
-        const neighbour = cells.find(function(cell){
-          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
-        });
-
-        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
-        cell.neighbours.push(newNeighbour);
-      }
-
-      // neighbours in same col - above
-      if (cell.position.row > 0) {
-        const neighbourRow = cell.position.row - 1;
-        const neighbourCol = cell.position.col;
-
-        const neighbour = cells.find(function(cell){
-          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
-        });
-
-        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
-        cell.neighbours.push(newNeighbour);
-      }
-
-      // neighbours in same col - above
-      if (cell.position.row > 0) {
-        const neighbourRow = cell.position.row - 1;
-        const neighbourCol = cell.position.col;
-
-        const neighbour = cells.find(function(cell){
-          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
-        });
-
-        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
-        cell.neighbours.push(newNeighbour);
-      }
-
-      // neighbours in same col - below
-      if (cell.position.row < rows - 1) {
-        const neighbourRow = cell.position.row + 1;
-        const neighbourCol = cell.position.col;
-
-        const neighbour = cells.find(function(cell){
-          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
-        });
-
-        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
-        cell.neighbours.push(newNeighbour);
-      }
-
-      // neighbours diagonal -  left above
-      if (cell.position.row > 0 && cell.position.col > 0) {
-        const neighbourRow = cell.position.row - 1;
-        const neighbourCol = cell.position.col - 1;
-
-        const neighbour = cells.find(function(cell){
-          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
-        });
-
-        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
-        cell.neighbours.push(newNeighbour);
-      }
-
-      // neighbours diagonal -  right above
-      if (cell.position.row > 0 && cell.position.col < cols - 1) {
-        const neighbourRow = cell.position.row - 1;
-        const neighbourCol = cell.position.col + 1;
-
-        const neighbour = cells.find(function(cell){
-          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
-        });
-
-        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
-        cell.neighbours.push(newNeighbour);
-      }
-
-      // neighbours diagonal -  left below
-      if (cell.position.row < rows - 1 && cell.position.col > 0) {
-        const neighbourRow = cell.position.row + 1;
-        const neighbourCol = cell.position.col - 1;
-
-        const neighbour = cells.find(function(cell){
-          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
-        });
-
-        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
-        cell.neighbours.push(newNeighbour);
-      }
-
-      // neighbours diagonal -  right below
-      if (cell.position.row < rows - 1 && cell.position.col < cols -1) {
-        const neighbourRow = cell.position.row + 1;
-        const neighbourCol = cell.position.col + 1;
-
-        const neighbour = cells.find(function(cell){
-          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
-        });
-
-        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
-        cell.neighbours.push(newNeighbour);
-      }
-
-    });
   }
 
 }

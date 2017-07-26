@@ -1,22 +1,17 @@
 import axios from 'axios';
 import {Universe} from '../server/universe.js';
+import {regenerate} from '../model/generator';
+import {FETCH_STATE} from '../constants/constant';
 
-export const FETCH_STATE = 'FETCH_STATE';
-export function fetchState(universe){
-  //const url ='/';
-  const rows = universe.rows;
-  const cols = universe.cols;
-  const cells = universe.cells;
+export function fetchState(population){
+  const rows = population.rows;
+  const cols = population.cols;
+  const cells = population.cells;
 
-  console.log(universe.rows);
-  console.log(universe.cols);
-  console.log(universe.cells);
-
-  const newUniverse = new Universe(rows, cols, cells);
-  const request = newUniverse.regenerate(rows, cols, cells);
-  //console.log(universe);
+  const clonedCells = cells.map(a => Object.assign({}, a));
+  const newPopulation = regenerate(rows, cols, clonedCells);
   return{
     type: FETCH_STATE,
-    payload : universe
+    payload : newPopulation
   };
 }

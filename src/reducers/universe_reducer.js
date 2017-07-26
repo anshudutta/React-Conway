@@ -1,5 +1,12 @@
+import {FETCH_STATE} from '../constants/constant';
 
-export default function(){
+export default function(state =[], action){
+  switch (action.type) {
+    case FETCH_STATE:
+      return action.payload;
+    default:
+
+  }
   return(
     {
       rows : 2,
