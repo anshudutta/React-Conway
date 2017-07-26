@@ -1,4 +1,4 @@
-import Cell from '../containers/cell'
+import Cell from './cell'
 
   export function regenerate(rows, cols, cells){
     if (!cells) {

@@ -8,5 +8,5 @@ export default function(state =[], action){
     default:
 
   }
-  return regenerate(2,4);
+  return regenerate(25,25);
 }

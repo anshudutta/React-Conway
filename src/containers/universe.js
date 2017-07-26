@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {fetchState} from '../actions/index';
-import Cell from './cell'
+import Unit from '../components/unit'
+import {Cell} from '../model/cell'
 
 class Universe extends Component {
   constructor(props){
@@ -37,6 +38,13 @@ class Universe extends Component {
             className={cName}>
           </td>
         );
+        /*
+        return <Unit data={
+          {
+            cellState : cell.state,
+            key : `row ${cell.position.row}, col ${cell.position.col}`
+          }}></Unit>;
+          */
       });
       return <tr key={index}>{rows}</tr>;
     });
@@ -44,18 +52,22 @@ class Universe extends Component {
 
   render(){
     return(
-      <form onSubmit={this.onFormSubmit} className="input-group">
-        <button
-          type="button"
-          onClick={this.onClick}
-          className="btn btn-primary">
-          Tick <span className="badge">{this.state.generation}</span>
-        </button>
-        <table className="table table-responsive table-bordered">
-          <tbody>
-            {this.renderUniverse()}
-          </tbody>
-        </table>
+      <form onSubmit={this.onFormSubmit} className="form-group">
+        <div>
+          <button
+            type="button"
+            onClick={this.onClick}
+            className="btn btn-primary">
+            Tick <span className="badge badge-pill badge-warning">{this.state.generation}</span>
+          </button>
+        </div>
+        <div>
+          <table className="table table-responsive table-bordered">
+            <tbody>
+              {this.renderUniverse()}
+            </tbody>
+          </table>
+        </div>
       </form>
     );
   }
