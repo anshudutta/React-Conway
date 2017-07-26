@@ -7,12 +7,17 @@ import Cell from './cell'
 class Universe extends Component {
   constructor(props){
     super(props);
+
+    const cells = props.population.cells;
+    const rows = props.population.rows;
+    const cols = props.population.cols;
+
     this.state = {
       generation : 0,
       population : {
-        rows : 0,
-        cols : 0,
-        cells : {}
+        rows : rows,
+        cols : cols,
+        cells : cells
       }
     };
     this.onClick = this.onClick.bind(this);
@@ -20,25 +25,28 @@ class Universe extends Component {
 
   onClick(event){
 
-    const clonedCells = this.props.population.cells.map(a => Object.assign({}, a));
-    const rows = this.props.population.rows;
-    const cols = this.props.population.cols;
+    const clonedCells = this.state.population.cells.map(a => Object.assign({}, a));
+    const rows = this.state.population.rows;
+    const cols = this.state.population.cols;
 
+    //console.log(this.props.population.cells);
     const regeneratedCells = this.regenerate(rows, cols, clonedCells);
+  //  console.log(regeneratedCells);
     this.setState({
       generation : this.state.generation + 1,
       population : {
-        rows : this.props.population.rows,
-        cols : this.props.population.cols,
+        rows : rows,
+        cols :cols,
         cells : regeneratedCells
       }
     });
+    console.log(this.state);
     //this.props.fetchState(this.props.universe);
   }
 
   renderUniverse(){
-    const numOfRows = this.props.population.rows;
-    const cells = this.props.population.cells;
+    const numOfRows = this.state.population.rows;
+    const cells = this.state.population.cells;
     var orderByRows = new Array();
 
     for (var i = 0; i < numOfRows; i++) {
@@ -117,69 +125,123 @@ class Universe extends Component {
 
   setNeighbours(rows, cols, cells){
     cells.map(function(cell){
-      var neighbourRow = 0;
-      var neighbourCol = 0;
-
+      cell.neighbours = new Array();
       // neighbor in same row - Left
       if (cell.position.col > 0) {
-        neighbourRow = cell.position.row;
-        neighbourCol = cell.position.col - 1;
+        const neighbourRow = cell.position.row;
+        const neighbourCol = cell.position.col - 1;
+
+        const neighbour = cells.find(function(cell){
+          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
+        });
+
+        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
+        cell.neighbours.push(newNeighbour);
       }
 
       // neighbour in same row - right
       if (cell.position.col < cols - 1) {
-        neighbourRow = cell.position.row;
-        neighbourCol = cell.position.col + 1;
+        const neighbourRow = cell.position.row;
+        const neighbourCol = cell.position.col + 1;
+
+        const neighbour = cells.find(function(cell){
+          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
+        });
+
+        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
+        cell.neighbours.push(newNeighbour);
       }
 
       // neighbours in same col - above
       if (cell.position.row > 0) {
-        neighbourRow = cell.position.row - 1;
-        neighbourCol = cell.position.col;
+        const neighbourRow = cell.position.row - 1;
+        const neighbourCol = cell.position.col;
+
+        const neighbour = cells.find(function(cell){
+          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
+        });
+
+        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
+        cell.neighbours.push(newNeighbour);
       }
 
       // neighbours in same col - above
       if (cell.position.row > 0) {
-        neighbourRow = cell.position.row - 1;
-        neighbourCol = cell.position.col;
+        const neighbourRow = cell.position.row - 1;
+        const neighbourCol = cell.position.col;
+
+        const neighbour = cells.find(function(cell){
+          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
+        });
+
+        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
+        cell.neighbours.push(newNeighbour);
       }
 
       // neighbours in same col - below
       if (cell.position.row < rows - 1) {
-        neighbourRow = cell.position.row + 1;
-        neighbourCol = cell.position.col;
+        const neighbourRow = cell.position.row + 1;
+        const neighbourCol = cell.position.col;
+
+        const neighbour = cells.find(function(cell){
+          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
+        });
+
+        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
+        cell.neighbours.push(newNeighbour);
       }
 
       // neighbours diagonal -  left above
       if (cell.position.row > 0 && cell.position.col > 0) {
-        neighbourRow = cell.position.row - 1;
-        neighbourCol = cell.position.col - 1;
+        const neighbourRow = cell.position.row - 1;
+        const neighbourCol = cell.position.col - 1;
+
+        const neighbour = cells.find(function(cell){
+          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
+        });
+
+        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
+        cell.neighbours.push(newNeighbour);
       }
 
       // neighbours diagonal -  right above
       if (cell.position.row > 0 && cell.position.col < cols - 1) {
-        neighbourRow = cell.position.row - 1;
-        neighbourCol = cell.position.col + 1;
+        const neighbourRow = cell.position.row - 1;
+        const neighbourCol = cell.position.col + 1;
+
+        const neighbour = cells.find(function(cell){
+          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
+        });
+
+        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
+        cell.neighbours.push(newNeighbour);
       }
 
       // neighbours diagonal -  left below
       if (cell.position.row < rows - 1 && cell.position.col > 0) {
-        neighbourRow = cell.position.row + 1;
-        neighbourCol = cell.position.col - 1;
+        const neighbourRow = cell.position.row + 1;
+        const neighbourCol = cell.position.col - 1;
+
+        const neighbour = cells.find(function(cell){
+          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
+        });
+
+        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
+        cell.neighbours.push(newNeighbour);
       }
 
       // neighbours diagonal -  right below
       if (cell.position.row < rows - 1 && cell.position.col < cols -1) {
-        neighbourRow = cell.position.row + 1;
-        neighbourCol = cell.position.col - 1;
+        const neighbourRow = cell.position.row + 1;
+        const neighbourCol = cell.position.col + 1;
+
+        const neighbour = cells.find(function(cell){
+          return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
+        });
+
+        const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
+        cell.neighbours.push(newNeighbour);
       }
-
-      const neighbour = cells.find(function(cell){
-        return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
-      });
-
-      const newNeighbour = new Cell(neighbourRow, neighbourCol, neighbour.state);
-      cell.neighbours.push(newNeighbour);
 
     });
   }
