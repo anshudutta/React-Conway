@@ -2,9 +2,20 @@ import Cell from '../containers/cell'
 
   export function regenerate(rows, cols, cells){
     if (!cells) {
-      cells = new Array();
+      var newCells = new Array();
+      for (var row = 0; row < rows; row++) {
+        for (var col = 0; col < cols; col++) {
+          var newCell = new Cell(row, col, Math.floor((Math.random() * 2)));
+          newCells.push(newCell);
+        }
+      }
+      return {
+        rows : rows,
+        cols : cols,
+        cells : newCells
+      };
     }
-    
+
     var newCells = new Array();
     setNeighbours(rows, cols, cells);
 

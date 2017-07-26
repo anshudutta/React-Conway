@@ -1,5 +1,4 @@
 import axios from 'axios';
-import {Universe} from '../server/universe.js';
 import {regenerate} from '../model/generator';
 import {FETCH_STATE} from '../constants/constant';
 

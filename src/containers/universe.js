@@ -7,43 +7,11 @@ import Cell from './cell'
 class Universe extends Component {
   constructor(props){
     super(props);
-
-    /*
-    const cells = props.population.cells;
-    const rows = props.population.rows;
-    const cols = props.population.cols;
-
-    this.state = {
-      generation : 0,
-      population : {
-        rows : rows,
-        cols : cols,
-        cells : cells
-      }
-    };
-    */
     this.state = {generation : 0};
     this.onClick = this.onClick.bind(this);
   }
 
   onClick(event){
-
-    //const clonedCells = this.state.population.cells.map(a => Object.assign({}, a));
-    ////const rows = this.state.population.rows;
-    //const cols = this.state.population.cols;
-
-    //const regeneratedCells = regenerate(rows, cols, clonedCells);
-    /*
-    this.setState({
-      generation : this.state.generation + 1,
-      population : {
-        rows : rows,
-        cols :cols,
-        cells : regeneratedCells
-      }
-    });
-    */
-
     this.setState({generation : this.state.generation + 1});
     this.props.fetchState(this.props.population);
   }
@@ -91,7 +59,6 @@ class Universe extends Component {
       </form>
     );
   }
-
 }
 
 function mapStateToProps(state){
