@@ -1,5 +1,5 @@
 import {FETCH_STATE} from '../constants/constant';
-import {regenerate} from '../model/generator';
+import {Population} from '../model/population';
 
 export default function(state =[], action){
   switch (action.type) {
@@ -8,5 +8,5 @@ export default function(state =[], action){
     default:
 
   }
-  return regenerate(25,25);
+  return new Population(25,25);
 }
