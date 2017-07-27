@@ -23,11 +23,3 @@ export default class Unit extends Component{
     );
   }
 }
-
-/*
-function mapStateToProps(state){
-    return {
-      population: state.cellState
-    };
-  }
-  */
