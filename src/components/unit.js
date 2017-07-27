@@ -14,7 +14,7 @@ export default class Unit extends Component{
 }
 
   render(){
-    var cName =  this.state == 1 ? "bg-success" : "bg-danger";
+    var cName =  this.state.cellState == 1 ? "bg-success" : "bg-danger";
     return(
       <td
         key={this.state.key}

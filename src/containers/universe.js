@@ -52,8 +52,8 @@ class Universe extends Component {
 
   render(){
     return(
-      <form onSubmit={this.onFormSubmit} className="form-group">
-        <div>
+      <form onSubmit={this.onFormSubmit}>
+        <div className="form-group">
           <button
             type="button"
             onClick={this.onClick}
@@ -61,7 +61,7 @@ class Universe extends Component {
             Tick <span className="badge badge-pill badge-warning">{this.state.generation}</span>
           </button>
         </div>
-        <div>
+        <div className="form-group">
           <table className="table table-responsive table-bordered">
             <tbody>
               {this.renderUniverse()}
