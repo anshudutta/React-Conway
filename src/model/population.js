@@ -35,12 +35,7 @@ function getNew(rows, cols){
 function regenerate(rows, cols, cells){
     var newCells = new Array();
     cells.map(function(cell, index){
-      var livingNeighbours = 0;
-      cell.neighbours.map(function(neighbour){
-        if (neighbour.state == 1) {
-          livingNeighbours++;
-        }
-      });
+      var livingNeighbours = cell.neighbours.filter(n => n.state == 1).length;
 
       if (cell.state == 1) {
         if (livingNeighbours < 2 || livingNeighbours > 3) {

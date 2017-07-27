@@ -6,7 +6,6 @@ export default function(state =[], action){
     case FETCH_STATE:
       return action.payload;
     default:
-
   }
   return new Population(25,25);
 }
