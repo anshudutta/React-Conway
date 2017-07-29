@@ -1,0 +1,36 @@
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });exports.expect = exports.renderComponent = undefined;var _jquery = require('jquery');var _jquery2 = _interopRequireDefault(_jquery);
+var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _reactDom = require('react-dom');var _reactDom2 = _interopRequireDefault(_reactDom);
+var _reactAddonsTestUtils = require('react-addons-test-utils');var _reactAddonsTestUtils2 = _interopRequireDefault(_reactAddonsTestUtils);
+var _jsdom = require('jsdom');var _jsdom2 = _interopRequireDefault(_jsdom);
+var _chai = require('chai');var _chai2 = _interopRequireDefault(_chai);
+var _chaiJquery = require('chai-jquery');var _chaiJquery2 = _interopRequireDefault(_chaiJquery);
+var _reactRedux = require('react-redux');
+var _redux = require('redux');
+var _reducers = require('../src/reducers');var _reducers2 = _interopRequireDefault(_reducers);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+global.document = _jsdom2.default.jsdom('<!doctype html><html><body></body></html>');
+global.window = global.document.defaultView;
+global.navigator = global.window.navigator;
+var $ = (0, _jquery2.default)(window);
+
+(0, _chaiJquery2.default)(_chai2.default, _chai2.default.util, $);
+
+function renderComponent(ComponentClass) {var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};var state = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+  var componentInstance = _reactAddonsTestUtils2.default.renderIntoDocument(
+  _react2.default.createElement(_reactRedux.Provider, { store: (0, _redux.createStore)(_reducers2.default, state) },
+    _react2.default.createElement(ComponentClass, props)));
+
+
+
+  return $(_reactDom2.default.findDOMNode(componentInstance));
+}
+
+$.fn.simulate = function (eventName, value) {
+  if (value) {
+    this.val(value);
+  }
+  _reactAddonsTestUtils2.default.Simulate[eventName](this[0]);
+};exports.
+
+renderComponent = renderComponent;exports.expect = _chai.expect;

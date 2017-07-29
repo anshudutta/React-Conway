@@ -1,11 +1,11 @@
 import {FETCH_STATE} from '../constants/constant';
 import Population from '../middleware/population';
 
-export default function(state =[], action){
+export default function(state ={}, action){
   switch (action.type) {
     case FETCH_STATE:
-      return action.payload;
+      return state.tick();
     default:
   }
-  return new Population(25,40);
+  return new Population(25,45);
 }

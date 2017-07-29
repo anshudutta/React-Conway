@@ -1,20 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
-import {fetchState} from '../actions/index';
 import Unit from '../components/unit'
 import {Cell} from '../middleware/cell'
 
 class Universe extends Component {
   constructor(props){
     super(props);
-    this.state = {generation : 0};
-    this.onClick = this.onClick.bind(this);
-  }
-
-  onClick(event){
-    this.setState({generation : this.state.generation + 1});
-    this.props.fetchState(this.props.population);
+    this.state = {};
   }
 
   renderUniverse(){
@@ -56,23 +48,13 @@ class Universe extends Component {
 
   render(){
     return(
-      <form onSubmit={this.onFormSubmit}>
-        <div className="form-group">
-          <button
-            type="button"
-            onClick={this.onClick}
-            className="btn btn-primary">
-            Tick <span className="badge badge-pill badge-warning">{this.state.generation}</span>
-          </button>
-        </div>
-        <div className="form-group">
-          <table className="table table-responsive table-bordered">
-            <tbody>
-              {this.renderUniverse()}
-            </tbody>
-          </table>
-        </div>
-      </form>
+      <div>
+        <table className="table table-responsive table-hover table-condensed">
+          <tbody>
+            {this.renderUniverse()}
+          </tbody>
+        </table>
+      </div>
     );
   }
 }
@@ -83,8 +65,4 @@ function mapStateToProps(state){
   };
 }
 
-function mapDispatchToProps(dispatch){
-  return bindActionCreators({fetchState}, dispatch);
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Universe);
+export default connect(mapStateToProps)(Universe);

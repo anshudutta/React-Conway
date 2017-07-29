@@ -1,4 +1,4 @@
-//import { renderComponent , expect } from '../test_helper';
+import { renderComponent , expect } from '../test_helper';
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 //import Link from '../Link.react';
@@ -8,7 +8,7 @@ import Unit from '../../src/components/unit';
 import Universe from '../../src/containers/universe'
 import Header from '../../src/components/header';
 
-/*
+
 describe('App' , () => {
   let component;
 
@@ -20,7 +20,7 @@ describe('App' , () => {
     expect(component).to.exist;
   });
 });
-*/
+
 
 describe('header', () =>{
   it('renders header component as expected', () =>{
@@ -35,8 +35,8 @@ describe('header', () =>{
 
 describe('universe', () =>{
   it('rendrs universe with random live and dead cells', () =>{
-    const uni = shallow(<Universe/>);
-    expect(uni).to.exist;
+    //const uni = shallow(<Universe {...this.props}  />);
+    //expect(uni).to.exist;
 
   })
 });

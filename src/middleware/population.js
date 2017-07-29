@@ -3,6 +3,7 @@ import Cell from './cell';
 export default function Population(rows, cols, cells){
   this.rows = rows;
   this.cols = cols;
+  this.generation = 0;
 
   if (!cells) {
     this.cells = getNew(rows, cols);
@@ -13,6 +14,7 @@ export default function Population(rows, cols, cells){
   }
 
   this.tick = function(){
+    this.generation ++;
     return regenerate(this.rows, this.cols, this.cells);
   };
 }
