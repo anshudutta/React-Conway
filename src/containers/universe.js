@@ -38,13 +38,6 @@ class Universe extends Component {
             className={cName}>
           </td>
         );
-        /*
-        return <Unit data={
-          {
-            cellState : cell.state,
-            key : `row ${cell.position.row}, col ${cell.position.col}`
-          }}></Unit>;
-          */
       });
       return <tr key={index}>{rows}</tr>;
     });
