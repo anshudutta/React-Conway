@@ -1,6 +1,6 @@
 import Cell from './cell';
 
-export function Population(rows, cols, cells){
+export default function Population(rows, cols, cells){
   this.rows = rows;
   this.cols = cols;
 
@@ -8,17 +8,13 @@ export function Population(rows, cols, cells){
     this.cells = getNew(rows, cols);
     setNeighbours(rows, cols, this.cells);
   }else{
-    this.cells = cells;
+    const cloned = cells.map(a => Object.assign({}, a));
+    this.cells = cloned;
   }
 
   this.tick = function(){
     return regenerate(this.rows, this.cols, this.cells);
   };
-
-  this.clone = function(){
-    const clonedCells = this.cells.map(a => Object.assign({}, a));
-    return new Population(this.rows, this.cols, this.cells);
-  }
 }
 
 function getNew(rows, cols){
@@ -54,7 +50,6 @@ function regenerate(rows, cols, cells){
           newCells.push(newCell);
         }
       }
-
     });
     setNeighbours(rows, cols, newCells);
     return new Population(rows, cols, newCells);

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
 import {fetchState} from '../actions/index';
 import Unit from '../components/unit'
-import {Cell} from '../model/cell'
+import {Cell} from '../middleware/cell'
 
 class Universe extends Component {
   constructor(props){
@@ -37,6 +37,17 @@ class Universe extends Component {
             key={i}
             className={cName}>
           </td>
+          /*
+          <Unit
+            data=
+            {
+              {
+                cellState : cell.state,
+                key : `row ${cell.position.row}, col ${cell.position.col}`
+              }
+            }>
+           </Unit>
+           */
         );
       });
       return <tr key={index}>{rows}</tr>;

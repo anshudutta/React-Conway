@@ -1,0 +1,47 @@
+'use strict';var _cell = require('../../src/middleware/cell');var _cell2 = _interopRequireDefault(_cell);
+var _population = require('../../src/middleware/population');var _population2 = _interopRequireDefault(_population);
+var _chai = require('chai');var _chai2 = _interopRequireDefault(_chai);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+describe("generate new population", function () {
+  it("creates a new universe from scratch", function () {
+    var population = new _population2.default(2, 2);
+    (0, _chai.expect)(population.rows).equal(2);
+    (0, _chai.expect)(population.cols).equal(2);
+    (0, _chai.expect)(population.cells).to.not.be.undefined;
+  });
+});
+
+describe("test known patterns", function () {
+
+  it("block pattern", function () {
+    var block = new Array();
+    block.push(new _cell2.default(0, 0, 1));
+    block.push(new _cell2.default(0, 1, 1));
+    block.push(new _cell2.default(1, 0, 1));
+    block.push(new _cell2.default(1, 1, 1));
+
+    var actual = new _population2.default(2, 2, block);
+    (0, _chai.expect)(block).to.deep.equal(actual.cells);
+  });
+
+  it("bloat pattern", function () {
+    var bloat = new Array();
+    bloat.push(new _cell2.default(0, 0, 1));
+    bloat.push(new _cell2.default(0, 1, 1));
+    bloat.push(new _cell2.default(0, 2, 0));
+    bloat.push(new _cell2.default(1, 0, 1));
+    bloat.push(new _cell2.default(1, 1, 0));
+    bloat.push(new _cell2.default(1, 2, 1));
+    bloat.push(new _cell2.default(2, 0, 0));
+    bloat.push(new _cell2.default(2, 1, 1));
+    bloat.push(new _cell2.default(2, 2, 0));
+
+    var actual = new _population2.default(3, 3, bloat);
+    (0, _chai.expect)(bloat).to.deep.equal(actual.cells);
+  });
+
+  it("blinker pattern", function () {
+
+  });
+
+});

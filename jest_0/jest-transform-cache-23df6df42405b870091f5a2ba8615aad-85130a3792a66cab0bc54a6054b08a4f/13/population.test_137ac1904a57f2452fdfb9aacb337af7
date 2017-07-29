@@ -1,0 +1,59 @@
+'use strict';var _population = require('../../src/middleware/population');var _population2 = _interopRequireDefault(_population);
+
+var _chai = require('chai');var _chai2 = _interopRequireDefault(_chai);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+/*
+                                                                                                                                                                     describe("generate new population", function(){
+                                                                                                                                                                       it("creates a new universe from scratch", function(){
+                                                                                                                                                                         var population = new Population(2,2);
+                                                                                                                                                                         expect(population.rows).equal(2);
+                                                                                                                                                                         expect(population.cols).equal(2);
+                                                                                                                                                                         expect(population.cells).to.not.be.undefined;
+                                                                                                                                                                       });
+                                                                                                                                                                     });
+                                                                                                                                                                     */
+
+describe("test known patterns", function () {
+
+  it("block pattern", function () {
+
+    //var actual = new Population(2,2);
+
+
+    var block = new Array();
+    block.push(new _population2.default(0, 0, 1));
+    //block.push(new Cell(0,1,1));
+    //block.push(new Cell(1,0,1));
+    //block.push(new Cell(1,1,1));
+
+    //console.log('here');
+    //console.log(block);
+    //var actual = new Population(2,2);
+
+    //expect(block).to.deep.equal(actual.cells);
+
+  });
+
+  it("bloat pattern", function () {
+    /*
+                                   var bloat = new Array();
+                                   bloat.push(new Cell(0,0,1));
+                                   bloat.push(new Cell(0,1,1));
+                                   bloat.push(new Cell(0,2,0));
+                                   bloat.push(new Cell(1,0,1));
+                                   bloat.push(new Cell(1,1,0));
+                                   bloat.push(new Cell(1,2,1));
+                                   bloat.push(new Cell(2,0,0));
+                                   bloat.push(new Cell(2,1,1));
+                                   bloat.push(new Cell(2,2,0));
+                                     const actual = populator.regenerate(3, 3, bloat);
+                                   expect(bloat).to.deep.equal(actual.cells);
+                                   */
+
+  });
+
+  it("blinker pattern", function () {
+
+  });
+
+});

@@ -1,0 +1,177 @@
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });exports.default =
+
+Population;var _cell = require('./cell');var _cell2 = _interopRequireDefault(_cell);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function Population(rows, cols, cells) {
+
+  console.log(rows);
+  console.log(cols);
+  console.log(cells);
+
+  this.rows = rows;
+  this.cols = cols;
+
+  if (!cells) {
+    this.cells = getNew(rows, cols);
+    setNeighbours(rows, cols, this.cells);
+  } else {
+    var cloned = cells.map(function (a) {return Object.assign({}, a);});
+    this.cells = cloned;
+  }
+
+  this.tick = function () {
+    return regenerate(this.rows, this.cols, this.cells);
+  };
+
+  this.clone = function () {
+    var clonedCells = this.cells.map(function (a) {return Object.assign({}, a);});
+    return new Population(this.rows, this.cols, this.cells);
+  };
+}
+
+function getNew(rows, cols) {
+  var newCells = new Array();
+  for (var row = 0; row < rows; row++) {
+    for (var col = 0; col < cols; col++) {
+      var newCell = new _cell2.default(row, col, Math.floor(Math.random() * 2));
+      newCells.push(newCell);
+    }
+  }
+  return newCells;
+}
+
+function regenerate(rows, cols, cells) {
+  var newCells = new Array();
+  cells.map(function (cell, index) {
+    var livingNeighbours = cell.neighbours.filter(function (n) {return n.state == 1;}).length;
+
+    if (cell.state == 1) {
+      if (livingNeighbours < 2 || livingNeighbours > 3) {
+        var newCell = new _cell2.default(cell.position.row, cell.position.col, 0);
+        newCells.push(newCell);
+      } else {
+        var _newCell = new _cell2.default(cell.position.row, cell.position.col, 1);
+        newCells.push(_newCell);
+      }
+    } else {
+      if (livingNeighbours == 3) {
+        var _newCell2 = new _cell2.default(cell.position.row, cell.position.col, 1);
+        newCells.push(_newCell2);
+      } else {
+        var _newCell3 = new _cell2.default(cell.position.row, cell.position.col, 0);
+        newCells.push(_newCell3);
+      }
+    }
+
+  });
+  setNeighbours(rows, cols, newCells);
+  return this(rows, cols, newCells);
+}
+
+function setNeighbours(rows, cols, cells) {
+  cells.map(function (cell) {
+    cell.neighbours = new Array();
+    // neighbor in same row - Left
+    if (cell.position.col > 0) {
+      var neighbourRow = cell.position.row;
+      var neighbourCol = cell.position.col - 1;
+
+      var neighbour = cells.find(function (cell) {
+        return cell.position.row == neighbourRow && cell.position.col == neighbourCol;
+      });
+
+      var newNeighbour = new _cell2.default(neighbourRow, neighbourCol, neighbour.state);
+      cell.neighbours.push(newNeighbour);
+    }
+
+    // neighbour in same row - right
+    if (cell.position.col < cols - 1) {
+      var _neighbourRow = cell.position.row;
+      var _neighbourCol = cell.position.col + 1;
+
+      var _neighbour = cells.find(function (cell) {
+        return cell.position.row == _neighbourRow && cell.position.col == _neighbourCol;
+      });
+
+      var _newNeighbour = new _cell2.default(_neighbourRow, _neighbourCol, _neighbour.state);
+      cell.neighbours.push(_newNeighbour);
+    }
+
+    // neighbours in same col - above
+    if (cell.position.row > 0) {
+      var _neighbourRow2 = cell.position.row - 1;
+      var _neighbourCol2 = cell.position.col;
+
+      var _neighbour2 = cells.find(function (cell) {
+        return cell.position.row == _neighbourRow2 && cell.position.col == _neighbourCol2;
+      });
+
+      var _newNeighbour2 = new _cell2.default(_neighbourRow2, _neighbourCol2, _neighbour2.state);
+      cell.neighbours.push(_newNeighbour2);
+    }
+
+    // neighbours in same col - below
+    if (cell.position.row < rows - 1) {
+      var _neighbourRow3 = cell.position.row + 1;
+      var _neighbourCol3 = cell.position.col;
+
+      var _neighbour3 = cells.find(function (cell) {
+        return cell.position.row == _neighbourRow3 && cell.position.col == _neighbourCol3;
+      });
+
+      var _newNeighbour3 = new _cell2.default(_neighbourRow3, _neighbourCol3, _neighbour3.state);
+      cell.neighbours.push(_newNeighbour3);
+    }
+
+    // neighbours diagonal -  left above
+    if (cell.position.row > 0 && cell.position.col > 0) {
+      var _neighbourRow4 = cell.position.row - 1;
+      var _neighbourCol4 = cell.position.col - 1;
+
+      var _neighbour4 = cells.find(function (cell) {
+        return cell.position.row == _neighbourRow4 && cell.position.col == _neighbourCol4;
+      });
+
+      var _newNeighbour4 = new _cell2.default(_neighbourRow4, _neighbourCol4, _neighbour4.state);
+      cell.neighbours.push(_newNeighbour4);
+    }
+
+    // neighbours diagonal -  right above
+    if (cell.position.row > 0 && cell.position.col < cols - 1) {
+      var _neighbourRow5 = cell.position.row - 1;
+      var _neighbourCol5 = cell.position.col + 1;
+
+      var _neighbour5 = cells.find(function (cell) {
+        return cell.position.row == _neighbourRow5 && cell.position.col == _neighbourCol5;
+      });
+
+      var _newNeighbour5 = new _cell2.default(_neighbourRow5, _neighbourCol5, _neighbour5.state);
+      cell.neighbours.push(_newNeighbour5);
+    }
+
+    // neighbours diagonal -  left below
+    if (cell.position.row < rows - 1 && cell.position.col > 0) {
+      var _neighbourRow6 = cell.position.row + 1;
+      var _neighbourCol6 = cell.position.col - 1;
+
+      var _neighbour6 = cells.find(function (cell) {
+        return cell.position.row == _neighbourRow6 && cell.position.col == _neighbourCol6;
+      });
+
+      var _newNeighbour6 = new _cell2.default(_neighbourRow6, _neighbourCol6, _neighbour6.state);
+      cell.neighbours.push(_newNeighbour6);
+    }
+
+    // neighbours diagonal -  right below
+    if (cell.position.row < rows - 1 && cell.position.col < cols - 1) {
+      var _neighbourRow7 = cell.position.row + 1;
+      var _neighbourCol7 = cell.position.col + 1;
+
+      var _neighbour7 = cells.find(function (cell) {
+        return cell.position.row == _neighbourRow7 && cell.position.col == _neighbourCol7;
+      });
+
+      var _newNeighbour7 = new _cell2.default(_neighbourRow7, _neighbourCol7, _neighbour7.state);
+      cell.neighbours.push(_newNeighbour7);
+    }
+
+  });
+}

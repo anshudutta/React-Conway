@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {Population} from '../model/population';
+import {Population} from '../middleware/population';
 import {FETCH_STATE} from '../constants/constant';
 
 export function fetchState(population){

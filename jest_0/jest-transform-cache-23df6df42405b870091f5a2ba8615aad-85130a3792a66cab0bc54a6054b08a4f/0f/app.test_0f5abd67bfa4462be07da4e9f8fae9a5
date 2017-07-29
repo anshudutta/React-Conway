@@ -1,0 +1,58 @@
+'use strict';
+var _react = require('react');var _react2 = _interopRequireDefault(_react);
+
+var _reactTestRenderer = require('react-test-renderer');var _reactTestRenderer2 = _interopRequireDefault(_reactTestRenderer);
+var _app = require('../../src/components/app');var _app2 = _interopRequireDefault(_app);
+var _unit = require('../../src/components/unit');var _unit2 = _interopRequireDefault(_unit);
+var _header = require('../../src/components/header');var _header2 = _interopRequireDefault(_header);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+/*
+                                                                                                                                                                                                  describe('App' , () => {
+                                                                                                                                                                                                    let component;
+                                                                                                                                                                                                  
+                                                                                                                                                                                                    beforeEach(() => {
+                                                                                                                                                                                                      component = renderComponent(App);
+                                                                                                                                                                                                    });
+                                                                                                                                                                                                  
+                                                                                                                                                                                                    it('renders something', () => {
+                                                                                                                                                                                                      expect(component).to.exist;
+                                                                                                                                                                                                    });
+                                                                                                                                                                                                  });
+                                                                                                                                                                                                  */ //import Link from '../Link.react';
+
+describe('header', function () {
+  it('header content is as expected', function () {
+    var headerComponent = _reactTestRenderer2.default.create(
+    _react2.default.createElement(_header2.default, null));
+
+
+    var json = headerComponent.toJSON();
+    expect(json).toMatchSnapshot();
+  });
+}); //import { renderComponent , expect } from '../test_helper';
+
+describe('unit', function () {
+  it('unit is rendered as expected', function () {
+    var td = _reactTestRenderer2.default.create(
+    _react2.default.createElement(_unit2.default, { data:
+
+      {
+        cellState: 1,
+        key: 'row 1, col 1' } }));
+
+
+
+    console.log(td);
+  });
+});
+
+/*
+    test("abc", ()=>{
+      const headerComponent = renderer.create(
+        <Header/>
+      );
+    
+      let json = headerComponent.toJSON();
+      expect(json).toMatchSnapshot();
+    });
+    */
