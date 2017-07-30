@@ -12,7 +12,8 @@ import Tick from '../../src/containers/tick'
 import Universe from '../../src/containers/universe'
 import Header from '../../src/components/header';
 import { Provider } from 'react-redux';
-
+import chai from 'chai';
+/*
 describe('App' , () => {
   let component;
   beforeEach(() => {
@@ -23,7 +24,7 @@ describe('App' , () => {
     expect(component).to.exist;
   });
 });
-
+*/
 describe('header', () =>{
   it('renders header component as expected', () =>{
     const headerComponent = renderer.create(
@@ -36,20 +37,34 @@ describe('header', () =>{
 });
 
 describe('tick', () => {
-    const mockStore = configureStore([]);
-    const store = mockStore({});
-    const wrapper = mount(
-        <Provider store={store}>
-           <Tick/>
-        </Provider>);
-    //expect(store.getActions().length).toBe(0);
-    //wrapper.find('form').to.exist;
-    console.log(wrapper);
-    expect(wrapper).to.exist;
-/*
-    expect(store.getActions().length).toBe(1);
-  it('renders a form', () => {
-    expect(tickContainer.find('form')).to.exist;
+  it('dispatches action correctly', () => {
+    const action = {
+        type: 'FETCH_STATE'
+      };
+      const mapDispatchToProps = (dispatch) => ({
+        dispatchProp() {
+          dispatch(action);
+        },
+      });
+      const store = createMockStore();
+
+      const ConnectedComponent = connect(undefined, mapDispatchToProps)(Tick);
+      const component = shallowWithStore(<ConnectedComponent />, store);
+      component.props().dispatchProp();
+      expect(store.isActionDispatched(action)).toBe(true);
   });
-*/
+
+  it('renders with a form', ()=>{
+    const expectedState = '{generation : 1}';
+      const mapStateToProps = (state) => ({
+        state,
+      });
+      const ConnectedComponent = connect(mapStateToProps)(Tick);
+      const component = shallowWithStore(<ConnectedComponent />, createMockStore(expectedState));
+      expect(component.props().state).toBe(expectedState);
+
+      chai.expect(component).to.be.a('object');
+      chai.expect(component.dive().find('form > input')).to.exist;
+      expect(component.props().state).toBe(expectedState);
+  });
 });
