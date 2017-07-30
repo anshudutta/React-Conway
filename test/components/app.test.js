@@ -1,17 +1,20 @@
-import { renderComponent , expect } from '../test_helper';
+//import { renderComponent , expect } from '../test_helper';
 import React from 'react';
-import { shallow, mount } from 'enzyme';
-//import Link from '../Link.react';
+import { connect } from 'react-redux';
+import { shallow, mount, render } from 'enzyme';
+import { createMockStore } from 'redux-test-utils';
+import { shallowWithStore } from 'enzyme-redux';
+import configureStore from 'redux-mock-store';
 import renderer from 'react-test-renderer';
 import App from '../../src/components/app';
 import Unit from '../../src/components/unit';
+import Tick from '../../src/containers/tick'
 import Universe from '../../src/containers/universe'
 import Header from '../../src/components/header';
-
+import { Provider } from 'react-redux';
 
 describe('App' , () => {
   let component;
-
   beforeEach(() => {
     component = renderComponent(App);
   });
@@ -20,7 +23,6 @@ describe('App' , () => {
     expect(component).to.exist;
   });
 });
-
 
 describe('header', () =>{
   it('renders header component as expected', () =>{
@@ -33,26 +35,21 @@ describe('header', () =>{
   })
 });
 
-describe('universe', () =>{
-  it('rendrs universe with random live and dead cells', () =>{
-    //const uni = shallow(<Universe {...this.props}  />);
-    //expect(uni).to.exist;
-
-  })
-});
-
+describe('tick', () => {
+    const mockStore = configureStore([]);
+    const store = mockStore({});
+    const wrapper = mount(
+        <Provider store={store}>
+           <Tick/>
+        </Provider>);
+    //expect(store.getActions().length).toBe(0);
+    //wrapper.find('form').to.exist;
+    console.log(wrapper);
+    expect(wrapper).to.exist;
 /*
-describe('unit', () => {
-  it('unit is rendered as expected', ()=>{
-
-    const wrapper = mount(<Unit data=
-    {
-      {
-        cellState:1,
-        key:'row 1, col 1'
-      }
-    }/>);
-    expect(wrapper.find('td').hasClass('bg-suggess')).to.equal(true);
+    expect(store.getActions().length).toBe(1);
+  it('renders a form', () => {
+    expect(tickContainer.find('form')).to.exist;
   });
-});
 */
+});

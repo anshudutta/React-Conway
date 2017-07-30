@@ -1,0 +1,78 @@
+'use strict';
+var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _reactRedux = require('react-redux');
+var _enzyme = require('enzyme');
+var _reduxTestUtils = require('redux-test-utils');
+var _enzymeRedux = require('enzyme-redux');
+
+var _reactTestRenderer = require('react-test-renderer');var _reactTestRenderer2 = _interopRequireDefault(_reactTestRenderer);
+var _app = require('../../src/components/app');var _app2 = _interopRequireDefault(_app);
+var _unit = require('../../src/components/unit');var _unit2 = _interopRequireDefault(_unit);
+var _tick = require('../../src/containers/tick');var _tick2 = _interopRequireDefault(_tick);
+var _universe = require('../../src/containers/universe');var _universe2 = _interopRequireDefault(_universe);
+var _showbox = require('../../src/containers/showbox');var _showbox2 = _interopRequireDefault(_showbox);
+var _header = require('../../src/components/header');var _header2 = _interopRequireDefault(_header);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+
+/*
+                                                                                                                                                                                                  describe('App' , () => {
+                                                                                                                                                                                                    let component;
+                                                                                                                                                                                                  
+                                                                                                                                                                                                    beforeEach(() => {
+                                                                                                                                                                                                      component = renderComponent(App);
+                                                                                                                                                                                                    });
+                                                                                                                                                                                                  
+                                                                                                                                                                                                    it('renders something', () => {
+                                                                                                                                                                                                      expect(component).to.exist;
+                                                                                                                                                                                                    });
+                                                                                                                                                                                                  });
+                                                                                                                                                                                                  */ //import { renderComponent , expect } from '../test_helper';
+
+
+describe('header', function () {
+  it('renders header component as expected', function () {
+    var headerComponent = _reactTestRenderer2.default.create(
+    _react2.default.createElement(_header2.default, null));
+
+
+    var json = headerComponent.toJSON();
+    expect(json).toMatchSnapshot();
+  });
+}); //import {shallowWithStore} from '../shallowWithStore';
+
+describe('ConnectedShowBox', function () {
+  it("should render successfully if string is not provided by store", function () {
+    var testState = {
+      showBox: {} };
+
+    var store = (0, _reduxTestUtils.createMockStore)(testState);
+    var component = (0, _enzymeRedux.shallowWithStore)(_react2.default.createElement(_showbox2.default, null), store);
+    expect(component).to.be.a('object');
+  });
+});
+
+describe('tick', function () {
+  it('renders with a form', function () {
+
+  });
+
+  it('increments generation with click', function () {
+
+  });
+});
+
+
+/*
+    describe('unit', () => {
+      it('unit is rendered as expected', ()=>{
+    
+        const wrapper = mount(<Unit data=
+        {
+          {
+            cellState:1,
+            key:'row 1, col 1'
+          }
+        }/>);
+        expect(wrapper.find('td').hasClass('bg-suggess')).to.equal(true);
+      });
+    });
+    */

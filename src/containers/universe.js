@@ -49,7 +49,7 @@ class Universe extends Component {
   render(){
     return(
       <div>
-        <table className="table table-responsive table-hover table-condensed">
+        <table className="table table-responsive table-condensed table-bordered">
           <tbody>
             {this.renderUniverse()}
           </tbody>

@@ -1,0 +1,68 @@
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });var _createClass = function () {function defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}return function (Constructor, protoProps, staticProps) {if (protoProps) defineProperties(Constructor.prototype, protoProps);if (staticProps) defineProperties(Constructor, staticProps);return Constructor;};}();var _react = require('react');var _react2 = _interopRequireDefault(_react);
+var _reactRedux = require('react-redux');
+var _unit = require('../components/unit');var _unit2 = _interopRequireDefault(_unit);
+var _cell = require('../middleware/cell');function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _possibleConstructorReturn(self, call) {if (!self) {throw new ReferenceError("this hasn't been initialised - super() hasn't been called");}return call && (typeof call === "object" || typeof call === "function") ? call : self;}function _inherits(subClass, superClass) {if (typeof superClass !== "function" && superClass !== null) {throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);}subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } });if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;}var
+
+Universe = function (_Component) {_inherits(Universe, _Component);
+  function Universe(props) {_classCallCheck(this, Universe);var _this = _possibleConstructorReturn(this, (Universe.__proto__ || Object.getPrototypeOf(Universe)).call(this,
+    props));
+    _this.state = {};return _this;
+  }_createClass(Universe, [{ key: 'renderUniverse', value: function renderUniverse()
+
+    {
+      var numOfRows = this.props.population.rows;
+      var cells = this.props.population.cells;
+      var orderByRows = new Array();
+
+      for (var i = 0; i < numOfRows; i++) {
+        var items = cells.filter(function (c, index) {
+          return c.position.row == i;
+        });
+        orderByRows.push(items);
+      }
+
+      return orderByRows.map(function (item, index) {
+        var rows = item.map(function (cell, i) {
+          var cName = cell.state == 1 ? "bg-success" : "bg-danger";
+          return (
+            _react2.default.createElement('td', {
+              key: i,
+              className: cName })
+
+            /*
+                                  <Unit
+                                    data=
+                                    {
+                                      {
+                                        cellState : cell.state,
+                                        key : `row ${cell.position.row}, col ${cell.position.col}`
+                                      }
+                                    }>
+                                   </Unit>
+                                   */);
+
+        });
+        return _react2.default.createElement('tr', { key: index }, rows);
+      });
+    } }, { key: 'render', value: function render()
+
+    {
+      return (
+        _react2.default.createElement('div', null,
+          _react2.default.createElement('table', { className: 'table table-responsive table-condensed' },
+            _react2.default.createElement('tbody', null,
+              this.renderUniverse()))));
+
+
+
+
+    } }]);return Universe;}(_react.Component);
+
+
+function mapStateToProps(state) {
+  return {
+    population: state.population };
+
+}exports.default =
+
+(0, _reactRedux.connect)(mapStateToProps)(Universe);

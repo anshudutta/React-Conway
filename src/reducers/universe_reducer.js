@@ -7,5 +7,5 @@ export default function(state ={}, action){
       return state.tick();
     default:
   }
-  return new Population(25,45);
+  return new Population(25,40);
 }

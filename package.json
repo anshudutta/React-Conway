@@ -21,6 +21,7 @@
     "chai": "^3.5.0",
     "chai-jquery": "^2.0.0",
     "enzyme": "^2.9.1",
+    "enzyme-redux": "^0.1.6",
     "express": "^4.15.3",
     "jest": "^20.0.4",
     "jquery": "^2.2.1",
@@ -29,6 +30,8 @@
     "react-addons-test-utils": "^0.14.8",
     "react-dom": "^15.6.1",
     "react-test-renderer": "^15.6.1",
+    "redux-mock-store": "^1.2.3",
+    "redux-test-utils": "^0.1.2",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"
   },

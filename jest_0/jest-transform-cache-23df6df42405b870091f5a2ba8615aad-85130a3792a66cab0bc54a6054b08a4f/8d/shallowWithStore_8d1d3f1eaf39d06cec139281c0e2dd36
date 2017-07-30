@@ -1,0 +1,10 @@
+'use strict';Object.defineProperty(exports, "__esModule", { value: true });var _enzyme = require('enzyme');
+
+var shallowWithStore = function shallowWithStore(component, store) {
+  var context = {
+    store: store };
+
+  return (0, _enzyme.shallow)(component, { context: context });
+};exports.default =
+
+shallowWithStore;
